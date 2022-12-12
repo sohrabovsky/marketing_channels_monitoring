@@ -19,7 +19,7 @@ df.loc[index5, "channel_type"] = "other_voucher"
 utm_campaign= df[df["utm_campaign"].notna()]
 index6= utm_campaign[utm_campaign["utm_campaign"].str.isdigit()].index
 df.loc[index6, "channel_type"] = "adwords"
-index7= df[(df["discount_name"].isna()) | (~df[df["utm_campaign"].notna()]["utm_campaign"].str.isdigit())].index
+index7= df[(df["discount_name"].isna()) & (~df[df["utm_campaign"].notna()]["utm_campaign"].str.isdigit())].index
 df.loc[index7, "channel_type"]= "direct & organic"
 
 df_plot= df.pivot_table(index= "issue_date", columns= "channel_type", values= "ticket", aggfunc= "count").drop(columns= ["other_voucher"])
